@@ -39,7 +39,7 @@ function tampilkan() {
 // LANGKAH 3b: tampilkan data ke tabel
 // =============================================================
 function renderTabel(data) {
-  tbody.replaceChildren();   // kosongkan isi tabel
+  tbody.replaceChildren();   
 
   if (data.length === 0) {
     const tr = document.createElement('tr');
