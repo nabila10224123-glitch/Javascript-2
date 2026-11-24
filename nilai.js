@@ -10,38 +10,54 @@
 // =============================================================
 
 function hitungNilaiAkhir(tugas, uts, uas) {
-  // TODO: salin dari Lab 1
-  return 0;
+  const nilai = tugas * 0.3 + uts * 0.3 + uas * 0.4;
+  return Number(nilai.toFixed(1));
 }
 
 function tentukanGrade(nilai) {
-  // TODO: salin dari Lab 1
-  return '?';
+  if (nilai >= 85) return 'A';
+  if (nilai >= 75) return 'B';
+  if (nilai >= 60) return 'C';
+  if (nilai >= 50) return 'D';
+  return 'E';
 }
 
 function buatRekap(daftar) {
-  // TODO: salin dari Lab 1 (map + spread, tambah nilaiAkhir, grade, lulus)
-  return daftar;
+ return daftar.map((m) => {
+    const nilaiAkhir = hitungNilaiAkhir(m.tugas, m.uts, m.uas);
+    const grade = tentukanGrade(nilaiAkhir);
+    const lulus = nilaiAkhir >= 60;
+    return { ...m, nilaiAkhir, grade, lulus };
+  });
 }
 
 function hitungRataRata(rekap) {
-  // TODO: salin dari Lab 1
-  return 0;
+  if (rekap.length === 0) return 0;
+  const total = rekap.reduce((acc, m) => acc + m.nilaiAkhir, 0);
+  return Number((total / rekap.length).toFixed(1));
 }
 
 function cariTertinggi(rekap) {
-  // TODO: salin dari Lab 1. Tambahkan: jika rekap kosong -> return null
-  return null;
+  if (rekap.length === 0) return null;
+  return rekap.reduce((tertinggi, m) => (m.nilaiAkhir > tertinggi.nilaiAkhir ? m : tertinggi));
 }
 
 function hitungDistribusiGrade(rekap) {
-  // TODO: salin dari Lab 1
-  return { A: 0, B: 0, C: 0, D: 0, E: 0 };
+  const distribusi = { A: 0, B: 0, C: 0, D: 0, E: 0 };
+  for (const m of rekap) {
+    if (distribusi[m.grade] !== undefined) {
+      distribusi[m.grade]++;
+    }
+  }
+  return distribusi;
 }
 
 function cariMahasiswa(rekap, kataKunci) {
-  // TODO: salin dari Lab 1
-  return rekap;
+  const kunci = kataKunci.trim().toLowerCase();
+  if (!kunci) return rekap;
+  return rekap.filter(
+    (m) => m.nama.toLowerCase().includes(kunci) || m.nim.toLowerCase().includes(kunci)
+  );
 }
 
 // ---- Sudah jadi: validasi input mahasiswa baru (dipakai sebelum memanggil api.js) ----
